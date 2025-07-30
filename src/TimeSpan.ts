@@ -1,21 +1,21 @@
 /**
- * TimeSpan-like class inspired by .NET Core's TimeSpan.
- * 
+ * TimeSpan-like class for precise time interval management.
+ *
  * This class provides a way to represent time intervals with various units
- * and conversion methods, similar to .NET Core's TimeSpan.
- * 
+ * and conversion methods for modern Node.js applications.
+ *
  * @example
  * ```typescript
  * // Create from different units
  * const timeSpan1 = TimeSpan.fromSeconds(30);
  * const timeSpan2 = TimeSpan.fromMinutes(2.5);
  * const timeSpan3 = TimeSpan.fromHours(1.5);
- * 
+ *
  * // Access total values
  * console.log(timeSpan1.totalSeconds); // 30
  * console.log(timeSpan2.totalMinutes); // 2.5
  * console.log(timeSpan3.totalHours); // 1.5
- * 
+ *
  * // Use with EnhancedAbortController
  * const controller = new EnhancedAbortController();
  * controller.abortAfterTimeSpan(TimeSpan.fromSeconds(5));
@@ -26,9 +26,9 @@ export class TimeSpan {
 
   /**
    * Creates a new TimeSpan instance from milliseconds.
-   * 
+   *
    * @param milliseconds - The number of milliseconds
-   * 
+   *
    * @example
    * ```typescript
    * const timeSpan = new TimeSpan(1500);
@@ -41,9 +41,9 @@ export class TimeSpan {
 
   /**
    * Gets the total milliseconds.
-   * 
+   *
    * @returns The total number of milliseconds
-   * 
+   *
    * @example
    * ```typescript
    * const timeSpan = TimeSpan.fromSeconds(2.5);
@@ -56,9 +56,9 @@ export class TimeSpan {
 
   /**
    * Gets the total seconds.
-   * 
+   *
    * @returns The total number of seconds
-   * 
+   *
    * @example
    * ```typescript
    * const timeSpan = TimeSpan.fromMilliseconds(2500);
@@ -71,9 +71,9 @@ export class TimeSpan {
 
   /**
    * Gets the total minutes.
-   * 
+   *
    * @returns The total number of minutes
-   * 
+   *
    * @example
    * ```typescript
    * const timeSpan = TimeSpan.fromSeconds(90);
@@ -86,9 +86,9 @@ export class TimeSpan {
 
   /**
    * Gets the total hours.
-   * 
+   *
    * @returns The total number of hours
-   * 
+   *
    * @example
    * ```typescript
    * const timeSpan = TimeSpan.fromMinutes(90);
@@ -101,9 +101,9 @@ export class TimeSpan {
 
   /**
    * Gets the total days.
-   * 
+   *
    * @returns The total number of days
-   * 
+   *
    * @example
    * ```typescript
    * const timeSpan = TimeSpan.fromHours(48);
@@ -116,10 +116,10 @@ export class TimeSpan {
 
   /**
    * Creates a TimeSpan from milliseconds.
-   * 
+   *
    * @param milliseconds - The number of milliseconds
    * @returns A new TimeSpan instance
-   * 
+   *
    * @example
    * ```typescript
    * const timeSpan = TimeSpan.fromMilliseconds(1500);
@@ -132,10 +132,10 @@ export class TimeSpan {
 
   /**
    * Creates a TimeSpan from seconds.
-   * 
+   *
    * @param seconds - The number of seconds
    * @returns A new TimeSpan instance
-   * 
+   *
    * @example
    * ```typescript
    * const timeSpan = TimeSpan.fromSeconds(2.5);
@@ -148,10 +148,10 @@ export class TimeSpan {
 
   /**
    * Creates a TimeSpan from minutes.
-   * 
+   *
    * @param minutes - The number of minutes
    * @returns A new TimeSpan instance
-   * 
+   *
    * @example
    * ```typescript
    * const timeSpan = TimeSpan.fromMinutes(1.5);
@@ -164,10 +164,10 @@ export class TimeSpan {
 
   /**
    * Creates a TimeSpan from hours.
-   * 
+   *
    * @param hours - The number of hours
    * @returns A new TimeSpan instance
-   * 
+   *
    * @example
    * ```typescript
    * const timeSpan = TimeSpan.fromHours(2.5);
@@ -180,10 +180,10 @@ export class TimeSpan {
 
   /**
    * Creates a TimeSpan from days.
-   * 
+   *
    * @param days - The number of days
    * @returns A new TimeSpan instance
-   * 
+   *
    * @example
    * ```typescript
    * const timeSpan = TimeSpan.fromDays(1.5);
@@ -196,9 +196,9 @@ export class TimeSpan {
 
   /**
    * Gets a TimeSpan representing zero time.
-   * 
+   *
    * @returns A TimeSpan representing zero time
-   * 
+   *
    * @example
    * ```typescript
    * const zero = TimeSpan.zero;
@@ -212,9 +212,9 @@ export class TimeSpan {
 
   /**
    * Gets a TimeSpan representing the maximum safe integer value.
-   * 
+   *
    * @returns A TimeSpan representing the maximum value
-   * 
+   *
    * @example
    * ```typescript
    * const max = TimeSpan.maxValue;
@@ -227,9 +227,9 @@ export class TimeSpan {
 
   /**
    * Gets a TimeSpan representing the minimum safe integer value.
-   * 
+   *
    * @returns A TimeSpan representing the minimum value
-   * 
+   *
    * @example
    * ```typescript
    * const min = TimeSpan.minValue;
@@ -239,4 +239,4 @@ export class TimeSpan {
   static get minValue(): TimeSpan {
     return new TimeSpan(Number.MIN_SAFE_INTEGER);
   }
-} 
+}

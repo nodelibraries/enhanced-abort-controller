@@ -5,11 +5,11 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue.svg)](https://www.typescriptlang.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-16+-green.svg)](https://nodejs.org/)
 
-> Enhanced AbortController with .NET Core CancellationToken-inspired patterns for Node.js and TypeScript applications.
+> Enhanced AbortController with Node.js-style patterns for modern TypeScript applications.
 
 ## 🚀 Features
 
-This library provides an enhanced version of the native `AbortController` with additional features inspired by .NET Core's `CancellationToken` system:
+This library provides an enhanced version of the native `AbortController` with additional features for modern Node.js applications:
 
 ### ✨ **EnhancedAbortController**
 
@@ -17,8 +17,7 @@ This library provides an enhanced version of the native `AbortController` with a
 - **`abortAfter(ms: number)`** - Abort after a specified delay in milliseconds
 - **`abortAfterTimeSpan(timeSpan: TimeSpan)`** - Abort using TimeSpan objects
 - **`dispose()`** - Dispose resources and abort
-- **`tryReset()`** - Attempt to reset the controller (if not disposed)
-- **`token`** - Get the signal (equivalent to CancellationTokenSource.Token)
+
 - **`reason`** - Get the abort reason
 - **Static methods** for creating timeout controllers and linked controllers
 
@@ -26,7 +25,7 @@ This library provides an enhanced version of the native `AbortController` with a
 
 - **`register(callback)`** - Register a callback with AbortRegistration
 - **`throwIfAborted(message?: string)`** - Throw AbortError if aborted
-- **`onAbort(callback)`** - Legacy method for backward compatibility
+
 - **`whenAborted`** - Promise that resolves when signal is aborted
 - **`canBeAborted`** - Check if signal can be aborted
 - **Static properties** for common signal patterns
@@ -34,7 +33,7 @@ This library provides an enhanced version of the native `AbortController` with a
 
 ### ✨ **TimeSpan**
 
-- **Time interval representation** inspired by .NET Core's TimeSpan
+- **Time interval representation** for precise time management
 - **Multiple unit constructors** (milliseconds, seconds, minutes, hours, days)
 - **Total value properties** for different time units
 - **Static properties** (zero, maxValue, minValue)
@@ -197,16 +196,6 @@ const controller = new EnhancedAbortController();
 controller.dispose();
 ```
 
-##### `tryReset(): boolean`
-
-Attempts to reset the controller. Returns `true` if successful, `false` if the controller is disposed.
-
-```typescript
-const controller = new EnhancedAbortController();
-controller.abort('Test');
-const resetSuccess = controller.tryReset(); // true
-```
-
 #### Instance Properties
 
 ##### `signal: EnhancedAbortSignal`
@@ -216,15 +205,6 @@ The abort signal associated with this controller.
 ```typescript
 const controller = new EnhancedAbortController();
 const signal = controller.signal;
-```
-
-##### `token: EnhancedAbortSignal`
-
-Alias for `signal` (equivalent to .NET's CancellationTokenSource.Token).
-
-```typescript
-const controller = new EnhancedAbortController();
-const token = controller.token;
 ```
 
 ##### `isAborted: boolean`
@@ -324,20 +304,6 @@ try {
 }
 ```
 
-##### `onAbort(callback: () => void): () => void`
-
-Legacy method for backward compatibility. Returns an unregister function.
-
-```typescript
-const controller = new EnhancedAbortController();
-const unregister = controller.signal.onAbort(() => {
-  console.log('Legacy callback called');
-});
-
-// Later
-unregister();
-```
-
 #### Instance Properties
 
 ##### `isAborted: boolean`
@@ -391,7 +357,7 @@ The underlying native AbortSignal.
 
 ```typescript
 const controller = new EnhancedAbortController();
-const nativeSignal = controller.signal.signal;
+const nativeSignal = controller.signal;
 ```
 
 #### Static Properties
@@ -678,6 +644,77 @@ setTimeout(() => {
 }, 1000);
 ```
 
+## 🌐 Library Integration Examples
+
+### Fetch API Integration
+
+```typescript
+import {
+  EnhancedAbortController,
+  EnhancedAbortSignal,
+  AbortError,
+} from 'enhanced-abort-controller';
+
+async function fetchWithAbort(url: string, signal: EnhancedAbortSignal) {
+  try {
+    const response = await fetch(url, {
+      signal: signal.signal, // Use native AbortSignal
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    if (error instanceof AbortError) {
+      console.log('Fetch was aborted:', error.message);
+    }
+    throw error;
+  }
+}
+
+const controller = new EnhancedAbortController();
+controller.abortAfter(5000); // Abort after 5 seconds
+
+fetchWithAbort('https://api.example.com/data', controller.signal).catch(() =>
+  console.log('Fetch completed')
+);
+```
+
+### Axios Integration
+
+```typescript
+import {
+  EnhancedAbortController,
+  EnhancedAbortSignal,
+  AbortError,
+} from 'enhanced-abort-controller';
+import axios from 'axios';
+
+async function axiosWithAbort(url: string, signal: EnhancedAbortSignal) {
+  try {
+    const response = await axios.get(url, {
+      signal: signal.signal,
+    });
+
+    return response.data;
+  } catch (error) {
+    if (error instanceof AbortError) {
+      console.log('Axios request was aborted:', error.message);
+    }
+    throw error;
+  }
+}
+
+const controller = new EnhancedAbortController();
+controller.abortAfter(3000);
+
+axiosWithAbort('https://api.example.com/data', controller.signal).catch(() =>
+  console.log('Axios request completed')
+);
+```
+
 ### Resource Cleanup Pattern
 
 ```typescript
@@ -836,9 +873,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- Inspired by .NET Core's `CancellationToken` system
 - Built on top of the native Web API `AbortController`
 - Designed for modern TypeScript and Node.js applications
+- Node.js-style patterns for clean and efficient async operations
 
 ## 🔗 Links
 

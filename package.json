@@ -1,7 +1,7 @@
 {
   "name": "enhanced-abort-controller",
-  "version": "1.0.1",
-  "description": "Enhanced AbortController with .NET Core CancellationToken-inspired patterns",
+  "version": "1.1.0",
+  "description": "Enhanced AbortController with Node.js-style patterns for modern applications",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {
@@ -19,8 +19,7 @@
     "cancellation",
     "async",
     "typescript",
-    "dotnet-core",
-    "cancellation-token"
+    "async-cancellation"
   ],
   "author": "ylcnfrht",
   "license": "MIT",
@@ -41,7 +40,5 @@
     "type": "git",
     "url": "https://github.com/ylcnfrht/enhanced-abort-controller.git"
   },
-  "dependencies": {
-    "enhanced-abort-controller": "^1.0.1"
-  }
+  "dependencies": {}
 }

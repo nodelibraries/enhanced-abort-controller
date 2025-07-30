@@ -2,18 +2,18 @@ import { EnhancedAbortSignal } from './EnhancedAbortSignal';
 import { TimeSpan } from './TimeSpan';
 
 /**
- * Enhanced AbortController with .NET Core CancellationToken-inspired patterns.
- * 
+ * Enhanced AbortController with Node.js-style patterns for modern applications.
+ *
  * This class provides an enhanced version of the native AbortController with additional
  * features like timeout-based cancellation, linked controllers, and disposal patterns.
- * 
+ *
  * @example
  * ```typescript
  * const controller = new EnhancedAbortController();
- * 
+ *
  * // Abort after 5 seconds
  * controller.abortAfter(5000);
- * 
+ *
  * // Use in async operations
  * async function doWork(signal: EnhancedAbortSignal) {
  *   for (let i = 0; i < 10; i++) {
@@ -22,7 +22,7 @@ import { TimeSpan } from './TimeSpan';
  *     await new Promise(resolve => setTimeout(resolve, 1000));
  *   }
  * }
- * 
+ *
  * doWork(controller.signal).catch(err => {
  *   if (err instanceof AbortError) {
  *     console.log('Operation was aborted');
@@ -32,13 +32,12 @@ import { TimeSpan } from './TimeSpan';
  */
 export class EnhancedAbortController {
   private controller: AbortController;
-  private _signal: EnhancedAbortSignal;
-  private timeoutId?: NodeJS.Timeout;
+  private timeoutId?: ReturnType<typeof setTimeout>;
   private disposed = false;
 
   /**
    * Creates a new EnhancedAbortController instance.
-   * 
+   *
    * @example
    * ```typescript
    * const controller = new EnhancedAbortController();
@@ -46,14 +45,13 @@ export class EnhancedAbortController {
    */
   constructor() {
     this.controller = new AbortController();
-    this._signal = new EnhancedAbortSignal(this.controller.signal);
   }
 
   /**
-   * Gets the abort signal associated with this controller.
-   * 
+   * Gets the enhanced abort signal associated with this controller.
+   *
    * @returns The EnhancedAbortSignal instance
-   * 
+   *
    * @example
    * ```typescript
    * const controller = new EnhancedAbortController();
@@ -62,29 +60,14 @@ export class EnhancedAbortController {
    * ```
    */
   get signal(): EnhancedAbortSignal {
-    return this._signal;
-  }
-
-  /**
-   * Gets the abort signal (equivalent to CancellationTokenSource.Token in .NET).
-   * 
-   * @returns The EnhancedAbortSignal instance
-   * 
-   * @example
-   * ```typescript
-   * const controller = new EnhancedAbortController();
-   * const token = controller.token;
-   * ```
-   */
-  get token(): EnhancedAbortSignal {
-    return this._signal;
+    return new EnhancedAbortSignal(this.controller.signal);
   }
 
   /**
    * Gets whether the controller has been aborted.
-   * 
+   *
    * @returns True if the controller has been aborted, false otherwise
-   * 
+   *
    * @example
    * ```typescript
    * const controller = new EnhancedAbortController();
@@ -99,9 +82,9 @@ export class EnhancedAbortController {
 
   /**
    * Gets whether the controller has been disposed.
-   * 
+   *
    * @returns True if the controller has been disposed, false otherwise
-   * 
+   *
    * @example
    * ```typescript
    * const controller = new EnhancedAbortController();
@@ -116,9 +99,9 @@ export class EnhancedAbortController {
 
   /**
    * Gets the abort reason.
-   * 
+   *
    * @returns The reason for the abort, or undefined if not aborted
-   * 
+   *
    * @example
    * ```typescript
    * const controller = new EnhancedAbortController();
@@ -132,9 +115,9 @@ export class EnhancedAbortController {
 
   /**
    * Aborts the controller immediately.
-   * 
+   *
    * @param reason - Optional reason for the abort
-   * 
+   *
    * @example
    * ```typescript
    * const controller = new EnhancedAbortController();
@@ -150,9 +133,9 @@ export class EnhancedAbortController {
 
   /**
    * Aborts the controller after a specified delay.
-   * 
+   *
    * @param ms - Milliseconds to wait before aborting
-   * 
+   *
    * @example
    * ```typescript
    * const controller = new EnhancedAbortController();
@@ -168,9 +151,9 @@ export class EnhancedAbortController {
 
   /**
    * Aborts the controller after a specified delay using TimeSpan.
-   * 
+   *
    * @param timeSpan - TimeSpan object representing the delay
-   * 
+   *
    * @example
    * ```typescript
    * const controller = new EnhancedAbortController();
@@ -185,7 +168,7 @@ export class EnhancedAbortController {
   /**
    * Disposes the controller and cleans up resources.
    * After disposal, the controller cannot be used for new operations.
-   * 
+   *
    * @example
    * ```typescript
    * const controller = new EnhancedAbortController();
@@ -201,30 +184,6 @@ export class EnhancedAbortController {
   }
 
   /**
-   * Tries to reset the controller (creates a new one).
-   * Note: This creates a new controller since AbortController cannot be reset.
-   * 
-   * @returns True if reset was successful, false if controller is disposed
-   * 
-   * @example
-   * ```typescript
-   * const controller = new EnhancedAbortController();
-   * controller.abort();
-   * const resetSuccess = controller.tryReset();
-   * console.log(resetSuccess); // true
-   * console.log(controller.isAborted); // false
-   * ```
-   */
-  tryReset(): boolean {
-    if (this.disposed) return false;
-
-    this.clearTimeout();
-    this.controller = new AbortController();
-    this._signal = new EnhancedAbortSignal(this.controller.signal);
-    return true;
-  }
-
-  /**
    * Clears the current timeout if one is set.
    */
   private clearTimeout(): void {
@@ -237,20 +196,20 @@ export class EnhancedAbortController {
   /**
    * Creates a controller that is linked to multiple signals.
    * The linked controller will abort when any of the provided signals abort.
-   * 
+   *
    * @param signals - The signals to link
    * @returns A new controller that aborts when any of the signals abort
-   * 
+   *
    * @example
    * ```typescript
    * const controller1 = new EnhancedAbortController();
    * const controller2 = new EnhancedAbortController();
-   * 
+   *
    * const linkedController = EnhancedAbortController.linkSignals(
    *   controller1.signal,
    *   controller2.signal
    * );
-   * 
+   *
    * // Aborting either controller1 or controller2 will abort linkedController
    * controller1.abort();
    * console.log(linkedController.isAborted); // true
@@ -269,15 +228,15 @@ export class EnhancedAbortController {
   /**
    * Creates a controller that is linked to multiple signals (alternative name).
    * The linked controller will abort when any of the provided signals abort.
-   * 
+   *
    * @param signals - The signals to link
    * @returns A new controller that aborts when any of the signals abort
-   * 
+   *
    * @example
    * ```typescript
    * const controller1 = new EnhancedAbortController();
    * const controller2 = new EnhancedAbortController();
-   * 
+   *
    * const linkedController = EnhancedAbortController.createLinkedController(
    *   controller1.signal,
    *   controller2.signal
@@ -292,10 +251,10 @@ export class EnhancedAbortController {
 
   /**
    * Creates a controller that aborts after a timeout.
-   * 
+   *
    * @param ms - Milliseconds to wait before aborting
    * @returns A new controller that aborts after the specified time
-   * 
+   *
    * @example
    * ```typescript
    * const controller = EnhancedAbortController.timeout(5000);

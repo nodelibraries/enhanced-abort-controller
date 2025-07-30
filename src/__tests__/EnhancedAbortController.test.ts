@@ -4,14 +4,14 @@ describe('EnhancedAbortController', () => {
   test('should create controller with non-aborted signal', () => {
     const controller = new EnhancedAbortController();
     expect(controller.isAborted).toBe(false);
-    expect(controller.signal.isAborted).toBe(false);
+    expect(controller.signal.aborted).toBe(false);
   });
 
   test('should abort controller', () => {
     const controller = new EnhancedAbortController();
     controller.abort();
     expect(controller.isAborted).toBe(true);
-    expect(controller.signal.isAborted).toBe(true);
+    expect(controller.signal.aborted).toBe(true);
   });
 
   test('should abort with reason', () => {
@@ -107,29 +107,6 @@ describe('EnhancedAbortController', () => {
     controller.dispose();
     controller.dispose(); // Should not throw
     expect(controller.isDisposed).toBe(true);
-  });
-
-  test('should try reset controller', () => {
-    const controller = new EnhancedAbortController();
-    controller.abort();
-    expect(controller.isAborted).toBe(true);
-
-    const resetSuccess = controller.tryReset();
-    expect(resetSuccess).toBe(true);
-    expect(controller.isAborted).toBe(false);
-  });
-
-  test('should not reset if disposed', () => {
-    const controller = new EnhancedAbortController();
-    controller.dispose();
-
-    const resetSuccess = controller.tryReset();
-    expect(resetSuccess).toBe(false);
-  });
-
-  test('should get token property', () => {
-    const controller = new EnhancedAbortController();
-    expect(controller.token).toBe(controller.signal);
   });
 
   test('should create linked controller', () => {

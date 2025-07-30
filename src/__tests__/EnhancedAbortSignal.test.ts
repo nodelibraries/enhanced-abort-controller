@@ -23,7 +23,7 @@ describe('EnhancedAbortSignal', () => {
 
   test('should not throw if not aborted', () => {
     const controller = new EnhancedAbortController();
-    
+
     expect(() => {
       controller.signal.throwIfAborted();
     }).not.toThrow();
@@ -107,13 +107,11 @@ describe('EnhancedAbortSignal', () => {
     expect(promise).resolves.toBeUndefined();
   });
 
-
-
-  test('should handle legacy onAbort method', () => {
+  test('should handle register method', () => {
     const controller = new EnhancedAbortController();
     let callbackCalled = false;
 
-    controller.signal.onAbort(() => {
+    controller.signal.register(() => {
       callbackCalled = true;
     });
 
@@ -121,42 +119,76 @@ describe('EnhancedAbortSignal', () => {
     expect(callbackCalled).toBe(true);
   });
 
-  test('should handle legacy onAbort unregister', () => {
+  test('should handle register unregister', () => {
     const controller = new EnhancedAbortController();
     let callbackCalled = false;
 
-    controller.signal.onAbort(() => {
+    const registration = controller.signal.register(() => {
       callbackCalled = true;
     });
 
+    registration.unregister();
     controller.abort();
-    expect(callbackCalled).toBe(true);
+    expect(callbackCalled).toBe(false);
   });
 
   test('should get underlying signal', () => {
     const controller = new EnhancedAbortController();
-    const signal = controller.signal.signal;
-    
-    expect(signal).toBeInstanceOf(AbortSignal);
+    const signal = controller.signal;
+
+    expect(signal).toBeInstanceOf(EnhancedAbortSignal);
+    expect(signal.aborted).toBeDefined();
+    expect(typeof signal.reason).toBe('undefined'); // reason is undefined when not aborted
   });
 
-  test('should create none signal', () => {
+  test('should handle canBeAborted property', () => {
+    const controller = new EnhancedAbortController();
+    const signal = controller.signal;
+
+    expect(signal.canBeAborted).toBe(true);
+
+    // Test with none signal
+    const noneSignal = EnhancedAbortSignal.none;
+    expect(noneSignal.canBeAborted).toBe(false);
+  });
+
+  test('should handle isAborted property', () => {
+    const controller = new EnhancedAbortController();
+    const signal = controller.signal;
+
+    expect(signal.isAborted).toBe(false);
+    controller.abort();
+    expect(signal.isAborted).toBe(true);
+  });
+
+  test('should handle static none signal', () => {
     const signal = EnhancedAbortSignal.none;
+
+    expect(signal).toBeInstanceOf(EnhancedAbortSignal);
     expect(signal.isAborted).toBe(false);
     expect(signal.canBeAborted).toBe(false);
   });
 
-  test('should create aborted signal', () => {
+  test('should handle static aborted signal', () => {
     const signal = EnhancedAbortSignal.aborted;
+
+    expect(signal).toBeInstanceOf(EnhancedAbortSignal);
     expect(signal.isAborted).toBe(true);
   });
 
-  test('should create timeout signal', () => {
+  test('should handle static timeout signal', (done) => {
     const signal = EnhancedAbortSignal.timeout(100);
+
     expect(signal).toBeInstanceOf(EnhancedAbortSignal);
+    expect(signal.isAborted).toBe(false);
+
+    signal.register(() => {
+      expect(signal.isAborted).toBe(true);
+      done();
+    });
   });
 
-  test('should create any signal', () => {
+  test('should handle static any signal', (done) => {
     const controller1 = new EnhancedAbortController();
     const controller2 = new EnhancedAbortController();
 
@@ -166,21 +198,7 @@ describe('EnhancedAbortSignal', () => {
     ]);
 
     expect(anySignal).toBeInstanceOf(EnhancedAbortSignal);
-  });
-
-  test('should create any signal with empty array', () => {
-    const anySignal = EnhancedAbortSignal.any([]);
-    expect(anySignal).toBeInstanceOf(EnhancedAbortSignal);
-  });
-
-  test('should handle any signal when one aborts', (done) => {
-    const controller1 = new EnhancedAbortController();
-    const controller2 = new EnhancedAbortController();
-
-    const anySignal = EnhancedAbortSignal.any([
-      controller1.signal,
-      controller2.signal,
-    ]);
+    expect(anySignal.isAborted).toBe(false);
 
     anySignal.register(() => {
       expect(anySignal.isAborted).toBe(true);
@@ -188,5 +206,28 @@ describe('EnhancedAbortSignal', () => {
     });
 
     controller1.abort();
+  });
+
+  test('should handle multiple signals in any', (done) => {
+    const controller1 = new EnhancedAbortController();
+    const controller2 = new EnhancedAbortController();
+
+    const anySignal = EnhancedAbortSignal.any([
+      controller1.signal,
+      controller2.signal,
+    ]);
+
+    let abortCount = 0;
+    anySignal.register(() => {
+      abortCount++;
+    });
+
+    controller1.abort();
+    controller2.abort();
+
+    setTimeout(() => {
+      expect(abortCount).toBe(1); // Should only trigger once
+      done();
+    }, 50);
   });
 });

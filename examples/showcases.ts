@@ -210,26 +210,6 @@ setTimeout(() => {
 console.log('\n');
 
 // ============================================================================
-// EXAMPLE 9: Legacy onAbort Method
-// ============================================================================
-console.log('📋 Example 9: Legacy onAbort Method');
-
-const legacyController = new EnhancedAbortController();
-
-// Use legacy onAbort method
-const unregister = legacyController.signal.onAbort(() => {
-  console.log('📝 Legacy onAbort callback called');
-});
-
-// Abort the controller
-setTimeout(() => {
-  console.log('Aborting legacy controller...');
-  legacyController.abort('Legacy test');
-}, 800);
-
-console.log('\n');
-
-// ============================================================================
 // EXAMPLE 10: whenAborted Promise
 // ============================================================================
 console.log('📋 Example 10: whenAborted Promise');
@@ -246,54 +226,6 @@ setTimeout(() => {
   console.log('Aborting controller for whenAborted test...');
   promiseController.abort('Promise test');
 }, 1200);
-
-console.log('\n');
-
-// ============================================================================
-// EXAMPLE 11: Controller Reset
-// ============================================================================
-console.log('📋 Example 11: Controller Reset');
-
-const resetController = new EnhancedAbortController();
-
-// Abort the controller
-resetController.abort('Initial abort');
-console.log('Controller aborted:', resetController.isAborted);
-
-// Try to reset
-const resetSuccess = resetController.tryReset();
-console.log('Reset successful:', resetSuccess);
-console.log('Controller aborted after reset:', resetController.isAborted);
-
-// Try to reset disposed controller
-resetController.dispose();
-const resetAfterDispose = resetController.tryReset();
-console.log('Reset after dispose:', resetAfterDispose);
-
-console.log('\n');
-
-// ============================================================================
-// EXAMPLE 12: Token Property
-// ============================================================================
-console.log('📋 Example 12: Token Property');
-
-const tokenController = new EnhancedAbortController();
-
-// Use token property (equivalent to CancellationTokenSource.Token)
-console.log('Token is aborted:', tokenController.token.isAborted);
-console.log(
-  'Token equals signal:',
-  tokenController.token === tokenController.signal
-);
-
-tokenController.token.register(() => {
-  console.log('📝 Token callback called');
-});
-
-setTimeout(() => {
-  console.log('Aborting token controller...');
-  tokenController.abort('Token test');
-}, 600);
 
 console.log('\n');
 
@@ -594,6 +526,6 @@ console.log('   ✅ AbortRegistration for callback management');
 console.log('   ✅ AbortError for proper error handling');
 console.log('   ✅ Static methods for common patterns');
 console.log('   ✅ Linked controllers and signal combinations');
-console.log('   ✅ Legacy compatibility with onAbort');
+
 console.log('   ✅ Promise-based waiting with whenAborted');
 console.log('   ✅ Resource cleanup and disposal patterns');
