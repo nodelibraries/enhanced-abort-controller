@@ -86,4 +86,4 @@ The enhanced version provides:
 
 - [Installation](/guide/installation)
 - [Quick Start](/guide/quick-start)
-- [EnhancedAbortController](/guide/controller)
+- [Examples](/examples/)

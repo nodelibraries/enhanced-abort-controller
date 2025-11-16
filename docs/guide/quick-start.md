@@ -130,6 +130,5 @@ processData(controller.signal).catch((err) => {
 
 ## Next Steps
 
-- Learn about [EnhancedAbortController](/guide/controller)
-- Explore [Linked Controllers](/guide/linked-controllers)
 - Check out [Examples](/examples/)
+- Read the [README](https://github.com/nodelibraries/enhanced-abort-controller#readme) for complete API documentation

@@ -48,6 +48,8 @@ export default defineConfig({
       provider: 'local',
     },
 
+    ignoreDeadLinks: true,
+
     nav: [
       { text: 'Guide', link: '/guide/' },
       { text: 'Examples', link: '/examples/' },

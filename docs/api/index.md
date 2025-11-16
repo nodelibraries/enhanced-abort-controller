@@ -4,11 +4,13 @@ Complete API reference for @nodelibraries/enhanced-abort-controller.
 
 ## Main Classes
 
-- [EnhancedAbortController](/api/controller) - Enhanced abort controller with timeout and disposal support
-- [EnhancedAbortSignal](/api/signal) - Enhanced abort signal with registration and promise support
-- [TimeSpan](/api/timespan) - Time interval representation for precise time management
-- [AbortError](/api/abort-error) - Error thrown when operations are aborted
-- [AbortRegistration](/api/abort-registration) - Registration for abort signal callbacks
+- **EnhancedAbortController** - Enhanced abort controller with timeout and disposal support
+- **EnhancedAbortSignal** - Enhanced abort signal with registration and promise support
+- **TimeSpan** - Time interval representation for precise time management
+- **AbortError** - Error thrown when operations are aborted
+- **AbortRegistration** - Registration for abort signal callbacks
+
+For detailed API documentation, please refer to the [README](https://github.com/nodelibraries/enhanced-abort-controller#readme) file in the repository.
 
 ## Quick Links
 
