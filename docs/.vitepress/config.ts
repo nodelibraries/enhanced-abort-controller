@@ -53,9 +53,12 @@ export default defineConfig({
     nav: [
       { text: 'Guide', link: '/guide/' },
       { text: 'Examples', link: '/examples/' },
+      { text: 'GitHub', link: 'https://github.com/nodelibraries/enhanced-abort-controller' },
       {
-        text: 'GitHub',
-        link: 'https://github.com/nodelibraries/enhanced-abort-controller',
+        text: '☕ Buy me a coffee',
+        link: 'https://buymeacoffee.com/ylcnfrht',
+        target: '_blank',
+        rel: 'noopener noreferrer',
       },
     ],
 
@@ -80,7 +83,7 @@ export default defineConfig({
 
     footer: {
       message:
-        'Released under the MIT License. Made with ❤️ for the TypeScript and Node.js community.',
+        'Released under the MIT License. If you find this project helpful, consider <a href="https://buymeacoffee.com/ylcnfrht" target="_blank" rel="noopener noreferrer">buying me a coffee</a> ☕',
       copyright: 'Copyright © 2025 nodelibraries | Created by ylcnfrht',
     },
   },
