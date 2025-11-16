@@ -2,7 +2,8 @@ import { defineConfig } from 'vitepress';
 
 export default defineConfig({
   title: '@nodelibraries/enhanced-abort-controller',
-  description: 'Enhanced AbortController with Node.js-style patterns for modern TypeScript applications',
+  description:
+    'Enhanced AbortController with Node.js-style patterns for modern TypeScript applications',
   base: '/enhanced-abort-controller/',
   lastUpdated: true,
   cleanUrls: true,
@@ -12,13 +13,34 @@ export default defineConfig({
       'meta',
       {
         name: 'keywords',
-        content: 'abort-controller, cancellation, async, typescript, javascript, nodejs, timeout, signal',
+        content:
+          'abort-controller, cancellation, async, typescript, javascript, nodejs, timeout, signal',
       },
     ],
-    ['meta', { property: 'og:title', content: '@nodelibraries/enhanced-abort-controller - Enhanced AbortController' }],
-    ['meta', { property: 'og:description', content: 'Enhanced AbortController with Node.js-style patterns for modern TypeScript applications' }],
+    [
+      'meta',
+      {
+        property: 'og:title',
+        content:
+          '@nodelibraries/enhanced-abort-controller - Enhanced AbortController',
+      },
+    ],
+    [
+      'meta',
+      {
+        property: 'og:description',
+        content:
+          'Enhanced AbortController with Node.js-style patterns for modern TypeScript applications',
+      },
+    ],
     ['meta', { property: 'og:type', content: 'website' }],
-    ['meta', { property: 'og:url', content: 'https://nodelibraries.github.io/enhanced-abort-controller/' }],
+    [
+      'meta',
+      {
+        property: 'og:url',
+        content: 'https://nodelibraries.github.io/enhanced-abort-controller/',
+      },
+    ],
   ],
 
   themeConfig: {
@@ -29,73 +51,32 @@ export default defineConfig({
     nav: [
       { text: 'Guide', link: '/guide/' },
       { text: 'Examples', link: '/examples/' },
-      { text: 'API', link: '/api/' },
-      { text: 'GitHub', link: 'https://github.com/nodelibraries/enhanced-abort-controller' },
+      {
+        text: 'GitHub',
+        link: 'https://github.com/nodelibraries/enhanced-abort-controller',
+      },
     ],
 
     sidebar: {
       '/guide/': [
-        {
-          text: 'Getting Started',
-          items: [
-            { text: 'Introduction', link: '/guide/' },
-            { text: 'Installation', link: '/guide/installation' },
-            { text: 'Quick Start', link: '/guide/quick-start' },
-          ],
-        },
-        {
-          text: 'Core Concepts',
-          items: [
-            { text: 'EnhancedAbortController', link: '/guide/controller' },
-            { text: 'EnhancedAbortSignal', link: '/guide/signal' },
-            { text: 'TimeSpan', link: '/guide/timespan' },
-            { text: 'Error Handling', link: '/guide/error-handling' },
-          ],
-        },
-        {
-          text: 'Advanced Features',
-          items: [
-            { text: 'Linked Controllers', link: '/guide/linked-controllers' },
-            { text: 'Resource Cleanup', link: '/guide/resource-cleanup' },
-            { text: 'Async Workflows', link: '/guide/async-workflows' },
-          ],
-        },
+        { text: 'Introduction', link: '/guide/' },
+        { text: 'Installation', link: '/guide/installation' },
+        { text: 'Quick Start', link: '/guide/quick-start' },
       ],
       '/examples/': [
-        {
-          text: 'Basic Examples',
-          items: [
-            { text: 'Basic Usage', link: '/examples/basic' },
-            { text: 'Timeout', link: '/examples/timeout' },
-            { text: 'TimeSpan', link: '/examples/timespan' },
-          ],
-        },
-        {
-          text: 'Advanced Examples',
-          items: [
-            { text: 'Linked Controllers', link: '/examples/linked-controllers' },
-            { text: 'Resource Cleanup', link: '/examples/resource-cleanup' },
-            { text: 'Async Workflows', link: '/examples/async-workflows' },
-            { text: 'Fetch Integration', link: '/examples/fetch' },
-          ],
-        },
+        { text: 'Basic Usage', link: '/examples/basic' },
       ],
       '/api/': [
-        {
-          text: 'API Reference',
-          items: [
-            { text: 'Overview', link: '/api/' },
-            { text: 'EnhancedAbortController', link: '/api/controller' },
-            { text: 'EnhancedAbortSignal', link: '/api/signal' },
-            { text: 'TimeSpan', link: '/api/timespan' },
-            { text: 'AbortError', link: '/api/abort-error' },
-            { text: 'AbortRegistration', link: '/api/abort-registration' },
-          ],
-        },
+        { text: 'API Reference', link: '/api/' },
       ],
     },
 
-    socialLinks: [{ icon: 'github', link: 'https://github.com/nodelibraries/enhanced-abort-controller' }],
+    socialLinks: [
+      {
+        icon: 'github',
+        link: 'https://github.com/nodelibraries/enhanced-abort-controller',
+      },
+    ],
 
     footer: {
       message:
@@ -104,4 +85,3 @@ export default defineConfig({
     },
   },
 });
-
