@@ -65,6 +65,7 @@ export default defineConfig({
       ],
       '/examples/': [
         { text: 'Basic Usage', link: '/examples/basic' },
+        { text: 'Express Integration', link: '/examples/express' },
       ],
     },
 
