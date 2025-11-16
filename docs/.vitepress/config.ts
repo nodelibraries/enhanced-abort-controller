@@ -66,9 +66,6 @@ export default defineConfig({
       '/examples/': [
         { text: 'Basic Usage', link: '/examples/basic' },
       ],
-      '/api/': [
-        { text: 'API Reference', link: '/api/' },
-      ],
     },
 
     socialLinks: [
