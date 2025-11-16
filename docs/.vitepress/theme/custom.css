@@ -1,0 +1,53 @@
+:root {
+  --vp-c-brand: #42b883;
+  --vp-c-brand-light: #42d392;
+  --vp-c-brand-lighter: #71e5b3;
+  --vp-c-brand-dark: #35a372;
+  --vp-c-brand-darker: #2d8a5f;
+}
+
+.VPHome {
+  padding: 0;
+}
+
+.VPHome .container {
+  max-width: 1152px;
+}
+
+.VPFeature {
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: all 0.3s;
+  margin: 0;
+}
+
+.VPFeature:hover {
+  border-color: var(--vp-c-brand);
+  box-shadow: 0 4px 12px rgba(66, 184, 131, 0.15);
+}
+
+.VPFeature .details {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  height: 50px;
+  margin: 0px;
+  padding: 0px;
+}
+
+.VPHero .name {
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.VPHero .text {
+  white-space: nowrap;
+  display: inline-block;
+  font-size: large;
+}
+
+.VPHero .tagline {
+  display: inline-block;
+  font-size: medium;
+}
+
