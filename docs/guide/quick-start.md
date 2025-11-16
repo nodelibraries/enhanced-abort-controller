@@ -20,8 +20,8 @@ controller.abortAfter(5000);
 
 // 4. Use with fetch
 fetch('https://api.example.com/data', {
-  signal: controller.signal.signal
-}).catch(err => {
+  signal: controller.signal.signal,
+}).catch((err) => {
   if (err.name === 'AbortError') {
     console.log('Request was cancelled');
   }
@@ -62,7 +62,7 @@ Use the signal with fetch or any API that supports AbortSignal:
 
 ```typescript
 fetch('https://api.example.com/data', {
-  signal: controller.signal.signal
+  signal: controller.signal.signal,
 });
 ```
 
@@ -71,7 +71,10 @@ fetch('https://api.example.com/data', {
 Use `TimeSpan` for more readable time intervals:
 
 ```typescript
-import { EnhancedAbortController, TimeSpan } from '@nodelibraries/enhanced-abort-controller';
+import {
+  EnhancedAbortController,
+  TimeSpan,
+} from '@nodelibraries/enhanced-abort-controller';
 
 const controller = new EnhancedAbortController();
 const timeSpan = TimeSpan.fromSeconds(5);
@@ -93,7 +96,7 @@ const linked = EnhancedAbortController.linkSignals(
 );
 
 fetch('https://api.example.com/data', {
-  signal: linked.signal.signal
+  signal: linked.signal.signal,
 });
 ```
 
@@ -102,7 +105,11 @@ fetch('https://api.example.com/data', {
 Use in async workflows with proper error handling:
 
 ```typescript
-import { EnhancedAbortController, AbortError, EnhancedAbortSignal } from '@nodelibraries/enhanced-abort-controller';
+import {
+  EnhancedAbortController,
+  AbortError,
+  EnhancedAbortSignal,
+} from '@nodelibraries/enhanced-abort-controller';
 
 async function processData(signal: EnhancedAbortSignal) {
   for (let i = 0; i < 100; i++) {
@@ -114,7 +121,7 @@ async function processData(signal: EnhancedAbortSignal) {
 const controller = new EnhancedAbortController();
 controller.abortAfter(5000);
 
-processData(controller.signal).catch(err => {
+processData(controller.signal).catch((err) => {
   if (err instanceof AbortError) {
     console.log('Processing was cancelled');
   }
@@ -126,4 +133,3 @@ processData(controller.signal).catch(err => {
 - Learn about [EnhancedAbortController](/guide/controller)
 - Explore [Linked Controllers](/guide/linked-controllers)
 - Check out [Examples](/examples/)
-

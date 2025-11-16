@@ -58,8 +58,8 @@ controller.abortAfter(5000); // Abort after 5 seconds
 
 // Use with fetch
 fetch('https://api.example.com/data', {
-  signal: controller.signal.signal
-}).catch(err => {
+  signal: controller.signal.signal,
+}).catch((err) => {
   if (err.name === 'AbortError') {
     console.log('Request was cancelled');
   }
@@ -140,4 +140,3 @@ No additional configuration required! The library has zero dependencies and work
 - Read the [Getting Started Guide](/guide/)
 - Check out [Examples](/examples/)
 - Browse the [API Reference](/api/)
-

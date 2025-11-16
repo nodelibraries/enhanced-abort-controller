@@ -9,4 +9,3 @@ export default {
     // Register global components here
   },
 } satisfies Theme;
-

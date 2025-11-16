@@ -26,8 +26,8 @@ const controller = new AbortController();
 const signal = controller.signal;
 
 fetch('https://api.example.com/data', { signal })
-  .then(response => response.json())
-  .catch(err => {
+  .then((response) => response.json())
+  .catch((err) => {
     if (err.name === 'AbortError') {
       console.log('Request was cancelled');
     }
@@ -55,7 +55,7 @@ controller.signal.register(() => {
 });
 
 fetch('https://api.example.com/data', {
-  signal: controller.signal.signal
+  signal: controller.signal.signal,
 });
 ```
 
@@ -72,19 +72,18 @@ The enhanced version provides:
 
 ## Comparison with Native AbortController
 
-| Feature | Native | Enhanced |
-|---------|--------|----------|
-| Basic abort | ✅ | ✅ |
-| Timeout support | ❌ | ✅ |
-| Linked signals | ❌ | ✅ |
-| TimeSpan | ❌ | ✅ |
-| Cleanup callbacks | ❌ | ✅ |
-| Promise support | ❌ | ✅ |
-| TypeScript | Partial | Full |
+| Feature           | Native  | Enhanced |
+| ----------------- | ------- | -------- |
+| Basic abort       | ✅      | ✅       |
+| Timeout support   | ❌      | ✅       |
+| Linked signals    | ❌      | ✅       |
+| TimeSpan          | ❌      | ✅       |
+| Cleanup callbacks | ❌      | ✅       |
+| Promise support   | ❌      | ✅       |
+| TypeScript        | Partial | Full     |
 
 ## Next Steps
 
 - [Installation](/guide/installation)
 - [Quick Start](/guide/quick-start)
 - [EnhancedAbortController](/guide/controller)
-

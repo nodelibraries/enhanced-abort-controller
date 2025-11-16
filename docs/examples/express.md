@@ -17,18 +17,18 @@ const app = express();
 // Middleware to create abort controller for each request
 app.use((req, res, next) => {
   const controller = new EnhancedAbortController();
-  
+
   // Auto-abort after 30 seconds
   controller.abortAfter(30000);
-  
+
   // Attach controller to request
   (req as any).abortController = controller;
-  
+
   // Clean up when request finishes
   res.on('close', () => {
     controller.dispose();
   });
-  
+
   next();
 });
 
@@ -88,19 +88,19 @@ const app = express();
 
 // Middleware with configurable timeout
 app.use((req, res, next) => {
-  const timeout = req.query.timeout 
-    ? parseInt(req.query.timeout as string) 
+  const timeout = req.query.timeout
+    ? parseInt(req.query.timeout as string)
     : 30000;
-  
+
   const controller = new EnhancedAbortController();
   controller.abortAfter(timeout);
-  
+
   (req as any).abortController = controller;
-  
+
   res.on('close', () => {
     controller.dispose();
   });
-  
+
   next();
 });
 
@@ -120,9 +120,9 @@ app.get('/api/users/:id', async (req, res) => {
     res.json({ user, posts, comments });
   } catch (error) {
     if (error instanceof AbortError) {
-      res.status(408).json({ 
+      res.status(408).json({
         error: 'Request timeout',
-        reason: controller.reason 
+        reason: controller.reason,
       });
     } else {
       res.status(500).json({ error: 'Internal server error' });
@@ -132,7 +132,7 @@ app.get('/api/users/:id', async (req, res) => {
 
 async function fetchUser(id: string, signal: EnhancedAbortSignal) {
   signal.throwIfAborted();
-  
+
   // Simulate database query
   await delay(1000, signal);
   return { id, name: 'John Doe' };
@@ -140,7 +140,7 @@ async function fetchUser(id: string, signal: EnhancedAbortSignal) {
 
 async function fetchUserPosts(id: string, signal: EnhancedAbortSignal) {
   signal.throwIfAborted();
-  
+
   // Simulate API call
   await delay(1500, signal);
   return [{ id: 1, title: 'Post 1' }];
@@ -148,7 +148,7 @@ async function fetchUserPosts(id: string, signal: EnhancedAbortSignal) {
 
 async function fetchUserComments(id: string, signal: EnhancedAbortSignal) {
   signal.throwIfAborted();
-  
+
   // Simulate external service call
   await delay(2000, signal);
   return [{ id: 1, text: 'Comment 1' }];
@@ -157,7 +157,7 @@ async function fetchUserComments(id: string, signal: EnhancedAbortSignal) {
 function delay(ms: number, signal: EnhancedAbortSignal): Promise<void> {
   return new Promise((resolve, reject) => {
     const timeout = setTimeout(resolve, ms);
-    
+
     signal.register(() => {
       clearTimeout(timeout);
       reject(new AbortError('Operation aborted'));
@@ -186,7 +186,7 @@ const activeRequests = new Map<string, EnhancedAbortController>();
 app.post('/api/long-running-task', async (req, res) => {
   const taskId = req.body.taskId || `task-${Date.now()}`;
   const controller = new EnhancedAbortController();
-  
+
   activeRequests.set(taskId, controller);
 
   try {
@@ -257,10 +257,10 @@ const app = express();
 app.use((req, res, next) => {
   // User cancellation controller
   const userController = new EnhancedAbortController();
-  
+
   // Timeout controller (30 seconds)
   const timeoutController = EnhancedAbortController.timeout(30000);
-  
+
   // Link both - abort if user cancels OR timeout occurs
   const linkedController = EnhancedAbortController.linkSignals(
     userController.signal,
@@ -296,7 +296,7 @@ app.get('/api/data', async (req, res) => {
 // Manual cancellation endpoint
 app.post('/api/cancel', (req, res) => {
   const userController = (req as any).userController as EnhancedAbortController;
-  
+
   if (userController && !userController.isAborted) {
     userController.abort('Cancelled by user');
     res.json({ status: 'cancelled' });
@@ -331,4 +331,3 @@ app.listen(3000);
 - **Error Handling**: Proper error handling for aborted operations
 - **Manual Cancellation**: Support for manual request cancellation
 - **Linked Controllers**: Combine user cancellation with timeout
-

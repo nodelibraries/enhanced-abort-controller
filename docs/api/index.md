@@ -15,4 +15,3 @@ Complete API reference for @nodelibraries/enhanced-abort-controller.
 - [Getting Started Guide](/guide/)
 - [Examples](/examples/)
 - [GitHub Repository](https://github.com/nodelibraries/enhanced-abort-controller)
-

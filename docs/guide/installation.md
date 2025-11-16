@@ -41,4 +41,3 @@ console.log('Enhanced Abort Controller installed successfully!');
 ## Next Steps
 
 - [Quick Start](/guide/quick-start)
-
