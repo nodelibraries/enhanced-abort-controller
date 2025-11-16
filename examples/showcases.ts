@@ -1,3 +1,13 @@
+/**
+ * Enhanced Abort Controller - Comprehensive Examples
+ *
+ * This file demonstrates all features and usage patterns of the Enhanced Abort Controller library.
+ * Run this file with: npm run build && node dist/examples/showcases.js
+ *
+ * @author Enhanced Abort Controller Team
+ * @version 1.1.0
+ */
+
 import {
   EnhancedAbortController,
   EnhancedAbortSignal,
@@ -5,10 +15,19 @@ import {
   TimeSpan,
 } from '../src/index';
 
-console.log('🚀 Enhanced Abort Controller Examples\n');
+console.log('🚀 Enhanced Abort Controller - Comprehensive Examples\n');
+console.log(
+  '═══════════════════════════════════════════════════════════════\n'
+);
 
 // ============================================================================
 // EXAMPLE 1: Basic EnhancedAbortController Usage
+// ============================================================================
+// Demonstrates the fundamental usage of EnhancedAbortController including:
+// - Creating a controller
+// - Registering abort callbacks
+// - Manual abortion with reasons
+// - Checking controller state
 // ============================================================================
 console.log('📋 Example 1: Basic EnhancedAbortController Usage');
 
@@ -37,6 +56,9 @@ console.log('\n');
 // ============================================================================
 // EXAMPLE 2: Timeout-based Abortion
 // ============================================================================
+// Shows how to automatically abort a controller after a specified delay.
+// Useful for implementing request timeouts and preventing long-running operations.
+// ============================================================================
 console.log('📋 Example 2: Timeout-based Abortion');
 
 const timeoutController = new EnhancedAbortController();
@@ -56,6 +78,9 @@ console.log('\n');
 
 // ============================================================================
 // EXAMPLE 3: TimeSpan Integration
+// ============================================================================
+// Demonstrates the TimeSpan class for more readable and maintainable time intervals.
+// TimeSpan provides multiple unit constructors and conversion properties.
 // ============================================================================
 console.log('📋 Example 3: TimeSpan Integration');
 
@@ -81,6 +106,10 @@ console.log('\n');
 
 // ============================================================================
 // EXAMPLE 4: Linked Controllers
+// ============================================================================
+// Shows how to create a controller that aborts when ANY of the linked signals abort.
+// Perfect for scenarios where you need to cancel an operation if any of multiple
+// conditions are met (e.g., user cancellation OR timeout OR error condition).
 // ============================================================================
 console.log('📋 Example 4: Linked Controllers');
 
@@ -195,10 +224,12 @@ const registration2 = registrationController.signal.register(() => {
   console.log('📝 Registration 2 called');
 });
 
-// Unregister one registration
+// Unregister one registration (registration2 will remain active)
 setTimeout(() => {
   console.log('Unregistering registration 1...');
   registration1.unregister();
+  // registration2 is intentionally kept to demonstrate multiple registrations
+  void registration2;
 }, 500);
 
 // Abort after unregister
@@ -328,6 +359,9 @@ console.log('\n');
 
 // ============================================================================
 // EXAMPLE 16: Complex Async Workflow
+// ============================================================================
+// Demonstrates a real-world scenario with multiple async steps that can be cancelled.
+// Shows proper error handling and cleanup patterns for production applications.
 // ============================================================================
 console.log('📋 Example 16: Complex Async Workflow');
 
@@ -475,12 +509,17 @@ const perfRegistration = perfController.signal.register(() => {
 setTimeout(() => {
   console.log('🛑 Aborting performance monitoring...');
   perfController.abort('Performance timeout');
+  // perfRegistration callback will be triggered automatically
+  void perfRegistration;
 }, 2000);
 
 console.log('\n');
 
 // ============================================================================
 // EXAMPLE 20: Resource Cleanup
+// ============================================================================
+// Shows how to properly clean up resources when an operation is aborted.
+// This pattern is essential for preventing memory leaks and resource exhaustion.
 // ============================================================================
 console.log('📋 Example 20: Resource Cleanup');
 
@@ -515,9 +554,12 @@ console.log('\n');
 // ============================================================================
 // FINAL SUMMARY
 // ============================================================================
-console.log('🎉 All examples completed!');
 console.log(
-  '📚 This demonstrates all features of the Enhanced Abort Controller library:'
+  '\n═══════════════════════════════════════════════════════════════\n'
+);
+console.log('🎉 All examples completed!\n');
+console.log(
+  '📚 This demonstrates all features of the Enhanced Abort Controller library:\n'
 );
 console.log('   ✅ EnhancedAbortController with timeout and disposal');
 console.log('   ✅ EnhancedAbortSignal with registration and promise support');
@@ -526,6 +568,19 @@ console.log('   ✅ AbortRegistration for callback management');
 console.log('   ✅ AbortError for proper error handling');
 console.log('   ✅ Static methods for common patterns');
 console.log('   ✅ Linked controllers and signal combinations');
-
 console.log('   ✅ Promise-based waiting with whenAborted');
 console.log('   ✅ Resource cleanup and disposal patterns');
+console.log(
+  '\n═══════════════════════════════════════════════════════════════\n'
+);
+console.log('📖 For more information, visit:');
+console.log(
+  '   - GitHub: https://github.com/nodelibraries/enhanced-abort-controller'
+);
+console.log(
+  '   - npm: https://www.npmjs.com/package/@nodelibraries/enhanced-abort-controller'
+);
+console.log(
+  '   - Docs: https://nodelibraries.github.io/enhanced-abort-controller'
+);
+console.log('\n');

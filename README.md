@@ -1,6 +1,6 @@
 # Enhanced Abort Controller
 
-[![npm version](https://badge.fury.io/js/enhanced-abort-controller.svg)](https://badge.fury.io/js/enhanced-abort-controller)
+[![npm version](https://badge.fury.io/js/%40nodelibraries%2Fenhanced-abort-controller.svg)](https://badge.fury.io/js/%40nodelibraries%2Fenhanced-abort-controller)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue.svg)](https://www.typescriptlang.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-16+-green.svg)](https://nodejs.org/)
@@ -53,7 +53,7 @@ This library provides an enhanced version of the native `AbortController` with a
 ## 📦 Installation
 
 ```bash
-npm install enhanced-abort-controller
+npm install @nodelibraries/enhanced-abort-controller
 ```
 
 ### TypeScript Support
@@ -69,7 +69,7 @@ import {
   EnhancedAbortController,
   EnhancedAbortSignal,
   AbortError,
-} from 'enhanced-abort-controller';
+} from '@nodelibraries/enhanced-abort-controller';
 
 // Create a controller
 const controller = new EnhancedAbortController();
@@ -104,7 +104,10 @@ registration.unregister();
 ### Timeout-based Abortion
 
 ```typescript
-import { EnhancedAbortController, TimeSpan } from 'enhanced-abort-controller';
+import {
+  EnhancedAbortController,
+  TimeSpan,
+} from '@nodelibraries/enhanced-abort-controller';
 
 const controller = new EnhancedAbortController();
 
@@ -122,7 +125,7 @@ const timeoutController = EnhancedAbortController.timeout(5000);
 ### Linked Controllers
 
 ```typescript
-import { EnhancedAbortController } from 'enhanced-abort-controller';
+import { EnhancedAbortController } from '@nodelibraries/enhanced-abort-controller';
 
 const controller1 = new EnhancedAbortController();
 const controller2 = new EnhancedAbortController();
@@ -180,7 +183,7 @@ controller.abortAfter(5000); // Abort after 5 seconds
 Aborts the controller using a TimeSpan object.
 
 ```typescript
-import { TimeSpan } from 'enhanced-abort-controller';
+import { TimeSpan } from '@nodelibraries/enhanced-abort-controller';
 
 const controller = new EnhancedAbortController();
 const timeSpan = TimeSpan.fromMinutes(2.5);
@@ -584,7 +587,7 @@ new AbortError(message?: string)
 #### Usage
 
 ```typescript
-import { AbortError } from 'enhanced-abort-controller';
+import { AbortError } from '@nodelibraries/enhanced-abort-controller';
 
 try {
   signal.throwIfAborted('Custom message');
@@ -604,7 +607,7 @@ import {
   EnhancedAbortController,
   EnhancedAbortSignal,
   AbortError,
-} from 'enhanced-abort-controller';
+} from '@nodelibraries/enhanced-abort-controller';
 
 async function complexWorkflow(signal: EnhancedAbortSignal) {
   console.log('🔄 Starting complex workflow...');
@@ -653,7 +656,7 @@ import {
   EnhancedAbortController,
   EnhancedAbortSignal,
   AbortError,
-} from 'enhanced-abort-controller';
+} from '@nodelibraries/enhanced-abort-controller';
 
 async function fetchWithAbort(url: string, signal: EnhancedAbortSignal) {
   try {
@@ -689,7 +692,7 @@ import {
   EnhancedAbortController,
   EnhancedAbortSignal,
   AbortError,
-} from 'enhanced-abort-controller';
+} from '@nodelibraries/enhanced-abort-controller';
 import axios from 'axios';
 
 async function axiosWithAbort(url: string, signal: EnhancedAbortSignal) {
@@ -718,7 +721,7 @@ axiosWithAbort('https://api.example.com/data', controller.signal).catch(() =>
 ### Resource Cleanup Pattern
 
 ```typescript
-import { EnhancedAbortController } from 'enhanced-abort-controller';
+import { EnhancedAbortController } from '@nodelibraries/enhanced-abort-controller';
 
 const controller = new EnhancedAbortController();
 
@@ -749,7 +752,10 @@ setTimeout(() => {
 ### Multiple Controllers with Different Strategies
 
 ```typescript
-import { EnhancedAbortController, TimeSpan } from 'enhanced-abort-controller';
+import {
+  EnhancedAbortController,
+  TimeSpan,
+} from '@nodelibraries/enhanced-abort-controller';
 
 // Controller with immediate abort
 const immediateController = new EnhancedAbortController();
@@ -783,7 +789,7 @@ import {
   EnhancedAbortController,
   EnhancedAbortSignal,
   AbortError,
-} from 'enhanced-abort-controller';
+} from '@nodelibraries/enhanced-abort-controller';
 
 const controller = new EnhancedAbortController();
 
@@ -859,6 +865,52 @@ npm run lint
 npm run dev
 ```
 
+### Running Examples
+
+```bash
+npm run build
+node dist/examples/showcases.js
+```
+
+## 🌐 GitHub Pages
+
+This project includes GitHub Pages support for hosting documentation. The documentation is automatically deployed when changes are pushed to the `main` branch.
+
+### Setup
+
+1. **Enable GitHub Pages** in your repository settings:
+
+   - Go to Settings → Pages
+   - Source: Select "GitHub Actions"
+
+2. **Automatic Deployment**:
+
+   - The `.github/workflows/pages.yml` workflow automatically builds and deploys documentation
+   - Documentation is available at: `https://nodelibraries.github.io/enhanced-abort-controller`
+
+3. **Manual Deployment**:
+   - The workflow can also be triggered manually from the Actions tab
+
+### Documentation Structure
+
+- `docs/index.html` - Main documentation page
+- Automatically generated from the project build
+- Includes API reference, examples, and usage patterns
+
+### Local Preview
+
+To preview the documentation locally:
+
+```bash
+# Build the project
+npm run build
+
+# Serve the docs directory
+npx serve docs
+# or
+python -m http.server 8000 -d docs
+```
+
 ## 🤝 Contributing
 
 1. Fork the repository
@@ -877,12 +929,100 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Designed for modern TypeScript and Node.js applications
 - Node.js-style patterns for clean and efficient async operations
 
+## 📖 Documentation
+
+Full API documentation is available at:
+
+- **GitHub Pages**: [https://nodelibraries.github.io/enhanced-abort-controller](https://nodelibraries.github.io/enhanced-abort-controller)
+- **npm Package**: [https://www.npmjs.com/package/@nodelibraries/enhanced-abort-controller](https://www.npmjs.com/package/@nodelibraries/enhanced-abort-controller)
+
 ## 🔗 Links
 
-- [GitHub Repository](https://github.com/ylcnfrht/enhanced-abort-controller)
-- [npm Package](https://www.npmjs.com/package/enhanced-abort-controller)
+- [GitHub Repository](https://github.com/nodelibraries/enhanced-abort-controller)
+- [npm Package](https://www.npmjs.com/package/@nodelibraries/enhanced-abort-controller)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Node.js](https://nodejs.org/)
+
+## 📊 Project Status
+
+- ✅ Full TypeScript support with type definitions
+- ✅ Comprehensive test coverage
+- ✅ Zero dependencies
+- ✅ Compatible with Node.js 16+ and modern browsers
+- ✅ MIT License
+
+## 🚀 Quick Examples
+
+### Basic Timeout
+
+```typescript
+import { EnhancedAbortController } from '@nodelibraries/enhanced-abort-controller';
+
+const controller = new EnhancedAbortController();
+controller.abortAfter(5000); // Auto-abort after 5 seconds
+
+// Use with fetch
+fetch('https://api.example.com/data', {
+  signal: controller.signal.signal,
+}).catch((err) => {
+  if (err.name === 'AbortError') {
+    console.log('Request was cancelled');
+  }
+});
+```
+
+### Linked Controllers
+
+```typescript
+import { EnhancedAbortController } from '@nodelibraries/enhanced-abort-controller';
+
+const userController = new EnhancedAbortController();
+const timeoutController = EnhancedAbortController.timeout(10000);
+
+// Abort if user cancels OR timeout occurs
+const linked = EnhancedAbortController.linkSignals(
+  userController.signal,
+  timeoutController.signal
+);
+
+// Use linked signal
+fetch('https://api.example.com/data', {
+  signal: linked.signal.signal,
+});
+```
+
+### Async Workflow with Cleanup
+
+```typescript
+import {
+  EnhancedAbortController,
+  AbortError,
+} from '@nodelibraries/enhanced-abort-controller';
+
+async function processData(signal: EnhancedAbortSignal) {
+  const resources: string[] = [];
+
+  try {
+    // Register cleanup
+    signal.register(() => {
+      console.log('Cleaning up resources...');
+      resources.length = 0;
+    });
+
+    // Process data
+    for (let i = 0; i < 100; i++) {
+      signal.throwIfAborted();
+      resources.push(`Resource ${i}`);
+      await processItem(i);
+    }
+  } catch (error) {
+    if (error instanceof AbortError) {
+      console.log('Processing was cancelled');
+    }
+    throw error;
+  }
+}
+```
 
 ---
 

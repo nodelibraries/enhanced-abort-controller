@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enhanced Abort Controller - Documentation</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+          'Helvetica Neue', Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background: #f5f5f5;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 40px 20px;
+        text-align: center;
+        margin-bottom: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      header h1 {
+        font-size: 2.5em;
+        margin-bottom: 10px;
+      }
+
+      header p {
+        font-size: 1.2em;
+        opacity: 0.9;
+      }
+
+      .badges {
+        margin-top: 20px;
+      }
+
+      .badge {
+        display: inline-block;
+        padding: 5px 10px;
+        margin: 5px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 5px;
+        font-size: 0.9em;
+      }
+
+      .content {
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+      }
+
+      .content h2 {
+        color: #667eea;
+        margin-top: 30px;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #667eea;
+      }
+
+      .content h3 {
+        color: #764ba2;
+        margin-top: 20px;
+        margin-bottom: 10px;
+      }
+
+      .code-block {
+        background: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-radius: 5px;
+        padding: 15px;
+        margin: 15px 0;
+        overflow-x: auto;
+      }
+
+      code {
+        font-family: 'Courier New', monospace;
+        font-size: 0.9em;
+      }
+
+      .code-block code {
+        color: #e83e8c;
+      }
+
+      .install-section {
+        background: #e7f3ff;
+        border-left: 4px solid #2196f3;
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 5px;
+      }
+
+      .feature-list {
+        list-style: none;
+        padding: 0;
+      }
+
+      .feature-list li {
+        padding: 10px;
+        margin: 5px 0;
+        background: #f8f9fa;
+        border-left: 3px solid #667eea;
+        border-radius: 3px;
+      }
+
+      .feature-list li:before {
+        content: '✓ ';
+        color: #28a745;
+        font-weight: bold;
+        margin-right: 10px;
+      }
+
+      .links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      .link-button {
+        display: inline-block;
+        padding: 12px 24px;
+        background: #667eea;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background 0.3s;
+      }
+
+      .link-button:hover {
+        background: #764ba2;
+      }
+
+      .link-button.secondary {
+        background: #6c757d;
+      }
+
+      .link-button.secondary:hover {
+        background: #5a6268;
+      }
+
+      footer {
+        text-align: center;
+        padding: 20px;
+        color: #6c757d;
+        margin-top: 40px;
+      }
+
+      @media (max-width: 768px) {
+        header h1 {
+          font-size: 2em;
+        }
+
+        .container {
+          padding: 10px;
+        }
+
+        .content {
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>🚀 Enhanced Abort Controller</h1>
+        <p>
+          Enhanced AbortController with Node.js-style patterns for modern
+          TypeScript applications
+        </p>
+        <div class="badges">
+          <span class="badge">TypeScript</span>
+          <span class="badge">Node.js</span>
+          <span class="badge">Zero Dependencies</span>
+          <span class="badge">MIT License</span>
+        </div>
+      </header>
+
+      <div class="content">
+        <h2>📦 Installation</h2>
+        <div class="install-section">
+          <code>npm install @nodelibraries/enhanced-abort-controller</code>
+        </div>
+
+        <h2>✨ Features</h2>
+        <ul class="feature-list">
+          <li>
+            <strong>EnhancedAbortController</strong> - Enhanced abort controller
+            with timeout and disposal support
+          </li>
+          <li>
+            <strong>EnhancedAbortSignal</strong> - Enhanced abort signal with
+            registration and promise support
+          </li>
+          <li>
+            <strong>TimeSpan</strong> - Time interval representation for precise
+            time management
+          </li>
+          <li>
+            <strong>AbortRegistration</strong> - Registration for abort signal
+            callbacks
+          </li>
+          <li>
+            <strong>AbortError</strong> - Error thrown when operations are
+            aborted
+          </li>
+          <li>
+            <strong>Linked Controllers</strong> - Create controllers that abort
+            when any linked signal aborts
+          </li>
+          <li>
+            <strong>Static Methods</strong> - Convenient static methods for
+            common patterns
+          </li>
+        </ul>
+
+        <h2>🎯 Quick Start</h2>
+        <h3>Basic Usage</h3>
+        <div class="code-block">
+          <code>
+            import { EnhancedAbortController } from
+            '@nodelibraries/enhanced-abort-controller'; const controller = new
+            EnhancedAbortController(); controller.abortAfter(5000); // Abort
+            after 5 seconds // Use with fetch
+            fetch('https://api.example.com/data', { signal:
+            controller.signal.signal }).catch(err => { if (err.name ===
+            'AbortError') { console.log('Request was cancelled'); } });
+          </code>
+        </div>
+
+        <h3>Linked Controllers</h3>
+        <div class="code-block">
+          <code>
+            import { EnhancedAbortController } from
+            '@nodelibraries/enhanced-abort-controller'; const userController =
+            new EnhancedAbortController(); const timeoutController =
+            EnhancedAbortController.timeout(10000); // Abort if user cancels OR
+            timeout occurs const linked = EnhancedAbortController.linkSignals(
+            userController.signal, timeoutController.signal );
+            fetch('https://api.example.com/data', { signal: linked.signal.signal
+            });
+          </code>
+        </div>
+
+        <h3>Async Workflow with Cleanup</h3>
+        <div class="code-block">
+          <code>
+            import { EnhancedAbortController, AbortError, EnhancedAbortSignal }
+            from '@nodelibraries/enhanced-abort-controller'; async function
+            processData(signal: EnhancedAbortSignal) { const resources: string[]
+            = []; try { // Register cleanup signal.register(() => {
+            console.log('Cleaning up resources...'); resources.length = 0; });
+            // Process data for (let i = 0; i < 100; i++) {
+            signal.throwIfAborted(); resources.push(`Resource ${i}`); await
+            processItem(i); } } catch (error) { if (error instanceof AbortError)
+            { console.log('Processing was cancelled'); } throw error; } }
+          </code>
+        </div>
+
+        <h2>📚 API Reference</h2>
+        <p>
+          For complete API documentation, please refer to the
+          <a
+            href="https://github.com/nodelibraries/enhanced-abort-controller#readme"
+            target="_blank"
+            >README</a
+          >
+          file in the repository.
+        </p>
+
+        <h3>Main Classes</h3>
+        <ul class="feature-list">
+          <li>
+            <strong>EnhancedAbortController</strong> - Main controller class
+            with timeout and disposal support
+          </li>
+          <li>
+            <strong>EnhancedAbortSignal</strong> - Enhanced signal with
+            registration and promise support
+          </li>
+          <li><strong>TimeSpan</strong> - Time interval representation</li>
+          <li>
+            <strong>AbortRegistration</strong> - Callback registration
+            management
+          </li>
+          <li>
+            <strong>AbortError</strong> - Error class for aborted operations
+          </li>
+        </ul>
+
+        <h2>🔗 Links</h2>
+        <div class="links">
+          <a
+            href="https://github.com/nodelibraries/enhanced-abort-controller"
+            class="link-button"
+            target="_blank"
+            >GitHub Repository</a
+          >
+          <a
+            href="https://www.npmjs.com/package/@nodelibraries/enhanced-abort-controller"
+            class="link-button secondary"
+            target="_blank"
+            >npm Package</a
+          >
+          <a
+            href="https://github.com/nodelibraries/enhanced-abort-controller#readme"
+            class="link-button secondary"
+            target="_blank"
+            >Full Documentation</a
+          >
+        </div>
+      </div>
+
+      <footer>
+        <p>Made with ❤️ for the TypeScript and Node.js community</p>
+        <p>Licensed under MIT License</p>
+      </footer>
+    </div>
+  </body>
+</html>

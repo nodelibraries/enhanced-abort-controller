@@ -1,5 +1,5 @@
 {
-  "name": "enhanced-abort-controller",
+  "name": "@nodelibraries/enhanced-abort-controller",
   "version": "1.1.0",
   "description": "Enhanced AbortController with Node.js-style patterns for modern applications",
   "main": "dist/src/index.js",
@@ -38,7 +38,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/ylcnfrht/enhanced-abort-controller.git"
+    "url": "https://github.com/nodelibraries/enhanced-abort-controller.git"
   },
   "dependencies": {}
 }
