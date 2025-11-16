@@ -36,10 +36,8 @@ jobs:
 
       - name: Generate documentation
         run: |
-          mkdir -p docs
-          cp -r dist docs/
-          cp README.md docs/
-          cp package.json docs/
+          # Keep existing docs files (index.html, styles.css, script.js)
+          # No need to copy dist or other files for static site
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
